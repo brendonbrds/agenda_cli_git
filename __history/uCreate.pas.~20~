@@ -1,0 +1,28 @@
+unit uCreate;
+
+interface
+
+uses
+  Vcl.Dialogs, uLkJSON, idHTTP, IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, URequest;
+
+var
+  js: TlkJSONobject;
+  lhttp: TIdHTTP;
+  Str, val: String;
+  Ureq : URequest;
+
+implementation
+
+function SaveAll(dados: string): string;
+begin
+  val := dados;
+  lhttp := TIdHTTP.Create;
+  Str := lhttp.POST('https:/api-address');
+  js := TlkJSON.ParseText(Str) as TlkJSONobject;
+
+  Result := ShowMessage('Register Sucessfull!');
+//  Result := js.Field['campo'].Value;
+
+end;
+
+end.
