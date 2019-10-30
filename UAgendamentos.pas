@@ -67,8 +67,7 @@ begin
   cod_medico.Enabled := true;
   cod_paciente.Enabled := true;
   date_picker.Enabled := true;
-  time_picker.Enabled := true
-
+  time_picker.Enabled := true;
 end;
 
 procedure TForm1.check_canceladoClick(Sender: TObject);
@@ -193,61 +192,38 @@ begin
     ShowMessage('Atenção! Você não informou o motivo do cancelamento');
 
   end;
-
-  // retorno := Self.Save;
   strTime := TimeToStr(time_picker.Time);
   strDate := FormatDateTime('yyyy/mm/dd', date_picker.Date);
   strDateTime := strDate + ' ' + strTime;
   mtv_c := memo_mtvCancel.Text;
   medico := cod_medico.Text;
   paciente := cod_paciente.Text;
-//  ShowMessage(strDateTime);
 
-  // if (check_cancelado.Checked = true) then
-  // begin
-  // fparam := _params_if;
-  // dados := Format(fparam, [strDateTime, medico, paciente, mtv_c]);
-  // end
-  // else
-  // begin
-  // fparam := _params;
-  // dados := Format(fparam, [strDateTime, medico, paciente]);
+  // retorno := uAgenda.json_config_get(medico, paciente, strDateTime, mtv_c)idHTTP;
+  ShowMessage(json_config_get(medico, paciente, strDateTime, mtv_c));
+
+  // URL := 'http://167.71.177.248:3333/agenda?';
+  // IdHTTP1.Request.Charset := 'utf-8';
+  // IdHTTP1.Request.CacheControl := 'no-cache';
+  // IdHTTP1.Request.clear;
+  // StreamRetorno := TStringStream.Create('');
+  // TSData := TStringList.Create;
+  // try
+  // try
+  // TSData.Add('medico=' + medico);
+  // TSData.Add('paciente=' + paciente);
+  // TSData.Add('data_hora=' + strDateTime);
+  // TSData.Add('motivo_cancelamento=' + mtv_c);
+  // IdHTTP1.Post(URL + UReq.Token, TSData, StreamRetorno);
+  // StreamRetorno.Position := 0;
+  // except
+  // on E: EIdHTTPProtocolException do
+  // ShowMessage(E.ErrorMessage);
   // end;
-
-  URL := 'http://167.71.177.248:3333/agenda?';
-  // JsonStreamEnvio := TStringStream.Create('');
-  StreamRetorno := TStringStream.Create('');
-  TSData := TStringList.Create;
-  try
-    // IdHTTP1.Request.clear;
-    IdHTTP1.Request.Charset := 'utf-8';
-    IdHTTP1.Request.CacheControl := 'no-cache';
-    // IdHTTP1.Request.BasicAuthentication := true;
-    // IdHTTP1.Request.Username := 'estagiario';
-    // IdHTTP1.Request.Password := '@D5estagio2019';
-    IdHTTP1.Request.clear;
-
-    try
-      TSData.Add('medico=' + medico);
-      TSData.Add('paciente=' + paciente);
-      TSData.Add('data_hora=' + strDateTime);
-      TSData.Add('motivo_cancelamento=' + mtv_c);
-      // TSData.Add('medico=' + medico);
-      IdHTTP1.Post(URL + UReq.Token, TSData, StreamRetorno);
-      StreamRetorno.Position := 0;
-
-    except
-
-      on E: EIdHTTPProtocolException do
-
-        ShowMessage(E.ErrorMessage);
-    end;
-  finally
-    // ShowMessage(TSData.Text);
-    TSData.Free();
-    StreamRetorno.Free();
-    ShowMessage('Agendamento Realizado com sucesso!');
-  end;
+  // finally
+  // TSData.Free();
+  // StreamRetorno.Free();
+  // end;
 
   cod_medico.Enabled := false;
   cod_paciente.Enabled := false;

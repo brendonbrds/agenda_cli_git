@@ -553,7 +553,7 @@ object Form1: TForm1
     end
     object btn_salvar: TSpeedButton
       Left = 0
-      Top = 112
+      Top = 103
       Width = 80
       Height = 97
       Cursor = crHandPoint
