@@ -246,7 +246,7 @@ begin
     // ShowMessage(TSData.Text);
     TSData.Free();
     StreamRetorno.Free();
-    ShowMessage('Dados Cadastrados!');
+    ShowMessage('Agendamento Realizado com sucesso!');
   end;
 
   cod_medico.Enabled := false;

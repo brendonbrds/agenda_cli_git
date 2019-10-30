@@ -14,7 +14,7 @@ object Form2: TForm2
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
-  Position = poDesigned
+  Position = poScreenCenter
   OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 13
