@@ -29,8 +29,6 @@
     <Transaction>2019/10/23 15:12:45.000.079,\\10.0.8.102\arquivos\Brendon\agenda_cli\Unit1.pas=\\10.0.8.102\arquivos\Brendon\agenda_cli\uCreate.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
-    <File Path="lkJSON"/>
-    <File Path="lkJSON\uLkJSON.pas"/>
     <File Path="UAgendamentos.pas"/>
     <File Path="UAgendamentos.dfm"/>
     <File Path="UListaMedicos.pas"/>

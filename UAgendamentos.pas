@@ -105,8 +105,8 @@ begin
     if (cod_medico.Text = '') then
       Form2.Show
     else if StrToInt(cod_medico.Text) > 0 then
-    // aqui busca o nome do medido da api
     begin
+      // aqui busca o nome do medido da api
       id := cod_medico.Text;
       // ShowMessage(id);
       lResponse := TStringStream.Create('');
@@ -128,6 +128,10 @@ begin
 end;
 
 procedure TForm1.cod_pacienteKeyPress(Sender: TObject; var Key: Char);
+var
+  lURL, id, retorno: String;
+  lResponse: TStringStream;
+  jsonObj: TJSONObject;
 begin
   // se o ENTER for pressionado
   if Key = #13 then
@@ -135,8 +139,22 @@ begin
     if cod_paciente.Text = '' then
       Form3.Show
     else if StrToInt(cod_paciente.Text) > 0 then
-      // aqui busca o nome do paciente da api
-      // ShowMessage('ok');
+    begin
+      id := cod_paciente.Text;
+      lResponse := TStringStream.Create('');
+      try
+        lURL := UReq.urlBase + 'paciente/' + id + '?' + UReq.Token;
+        IdHTTP1.Get(lURL, lResponse);
+        lResponse.Position := 0;
+        jsonObj := TJSONObject.ParseJSONValue(lResponse.DataString)
+          as TJSONObject;
+        retorno := jsonObj.GetValue('nome').Value;
+        // ShowMessage('Nome: ' + retorno);
+        name_paciente.Text := retorno;
+      finally
+        lResponse.Free();
+      end;
+    end;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -159,9 +177,9 @@ var
   StreamRetorno, JsonStreamEnvio: TStringStream;
   TSData: TStringList;
 
-const
-  _params = 'data_hora=%s&medico=%s&paciente=%s';
-  _params_if = 'data_hora=%s&medico=%d&paciente=%d&motivo_cancelamento=%s';
+  // const
+  // _params = 'data_hora=%s&medico=%s&paciente=%s';
+  // _params_if = 'data_hora=%s&medico=%d&paciente=%d&motivo_cancelamento=%s';
 
 begin
 
@@ -183,7 +201,7 @@ begin
   mtv_c := memo_mtvCancel.Text;
   medico := cod_medico.Text;
   paciente := cod_paciente.Text;
-  ShowMessage(strDateTime);
+//  ShowMessage(strDateTime);
 
   // if (check_cancelado.Checked = true) then
   // begin
@@ -216,10 +234,7 @@ begin
       TSData.Add('motivo_cancelamento=' + mtv_c);
       // TSData.Add('medico=' + medico);
       IdHTTP1.Post(URL + UReq.Token, TSData, StreamRetorno);
-
-      { Exemplo de uso do response : carregar o conteúdo num RichEdit : }
       StreamRetorno.Position := 0;
-      // reResp.Lines.LoadFromStream(lResponse);
 
     except
 
@@ -231,6 +246,7 @@ begin
     // ShowMessage(TSData.Text);
     TSData.Free();
     StreamRetorno.Free();
+    ShowMessage('Dados Cadastrados!');
   end;
 
   cod_medico.Enabled := false;

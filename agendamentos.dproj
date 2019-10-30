@@ -100,7 +100,6 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="lkJSON\uLkJSON.pas"/>
         <DCCReference Include="uAgenda.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

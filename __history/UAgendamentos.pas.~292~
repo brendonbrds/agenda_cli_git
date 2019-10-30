@@ -155,7 +155,7 @@ end;
 procedure TForm1.btn_salvarClick(Sender: TObject);
 var
   retorno, fparam, mtv_c, medico, paciente, strDate, strTime, strDateTime,
-    dados, URL, senddata, uri, s: string;
+    dados, URL, senddata, uri, newDateTime: string;
   StreamRetorno, JsonStreamEnvio: TStringStream;
   TSData: TStringList;
 
@@ -177,11 +177,9 @@ begin
   end;
 
   // retorno := Self.Save;
-  strDate := DateToStr(date_picker.Date);
   strTime := TimeToStr(time_picker.Time);
-  strDateTime := strDate + strTime;
-  // formata date e hora para timestamp
-  s := formatdatetime('dd/mm/yy hh:nn:ss', strDateTime);
+  strDate := FormatDateTime('yyyy/mm/dd', date_picker.Date);
+  strDateTime := strDate + ' ' + strTime;
   mtv_c := memo_mtvCancel.Text;
   medico := cod_medico.Text;
   paciente := cod_paciente.Text;
