@@ -63,6 +63,7 @@ begin
   idHTTP := TIdHTTP.Create();
   // RBody := TStringStream.Create(UTF8Encode(ARequest));
   RBody := TStringStream.Create(ARequest);
+
   try
     if AFormat = 'json' then
     begin
@@ -85,6 +86,7 @@ begin
       idHTTP.Request.CacheControl := 'no-cache';
       idHTTP.Request.clear;
       Result := idHTTP.Post(_URI, RBody);
+      // RBody.Position := 0;
     except
       on E: EIdHTTPProtocolException do
         ShowMessage(E.ErrorMessage);
@@ -109,7 +111,8 @@ begin
 
   // response := SaveAgend('json', 'config/get', JSON);
   response := SaveAgend('json', JSON);
-  Result := Copy(response, 13, Length(response) - 14);
+  // Result := Copy(response, 13, Length(response) - 14);
+  Result := response;
 end;
 
 // function xml_config_get(varname: string): string;
