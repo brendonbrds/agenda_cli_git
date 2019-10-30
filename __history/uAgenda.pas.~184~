@@ -20,7 +20,8 @@ const
   _path = 'agenda?' + Ureq.Token;
   _URI = _URL + _path;
 
-function SaveAgend(AFormat, AMethod, ARequest: string): string;
+  // function SaveAgend(AFormat, AMethod, ARequest: string): string;
+function SaveAgend(AFormat, ARequest: string): string;
 function json_config_get(medico, paciente, strDateTime, mtv_c: string): string;
 
 implementation
@@ -54,7 +55,8 @@ implementation
 //
 // end;
 
-function SaveAgend(AFormat, AMethod, ARequest: string): string;
+//function SaveAgend(AFormat, AMethod, ARequest: string): string;
+function SaveAgend(AFormat, ARequest: string): string;
 var
   RBody: TStringStream;
 begin
@@ -66,25 +68,22 @@ begin
       idHTTP.Request.Accept := 'text/javascript';
       idHTTP.Request.ContentType := 'application/json';
       idHTTP.Request.ContentEncoding := 'utf-8';
-      idHTTP.Request.Method := 'POST';
-      idHTTP.Request.CacheControl := 'no-cache';
-      idHTTP.Request.clear;
     end
     else
     begin
       idHTTP.Request.Accept := 'text/xml';
       idHTTP.Request.ContentType := 'text/xml';
       idHTTP.Request.ContentEncoding := 'utf-8';
-      idHTTP.Request.Method := 'POST';
-      idHTTP.Request.CacheControl := 'no-cache';
-      idHTTP.Request.clear;
     end;
     try
       // idHTTP.Request.BasicAuthentication := True;
       // idHTTP.Request.Authentication := TIdBasicAuthentication.Create;
       // idHTTP.Request.Authentication.Username := 'estagiario';
       // idHTTP.Request.Authentication.Password := '@D5estagio2019';
-      Result := idHTTP.Post(_URI + AMethod, RBody);
+      idHTTP.Request.Method := 'POST';
+      idHTTP.Request.CacheControl := 'no-cache';
+      idHTTP.Request.clear;
+      Result := idHTTP.Post(_URI, RBody);
     except
       on E: EIdHTTPProtocolException do
         ShowMessage(E.ErrorMessage);
@@ -107,7 +106,8 @@ begin
   JSON := JSON + '"data_hora":"' + strDateTime + '",';
   JSON := JSON + '"motivo_cancelamento":"' + mtv_c + '"' + _sufix;
 
-  response := SaveAgend('json', 'config/get', JSON);
+  // response := SaveAgend('json', 'config/get', JSON);
+  response := SaveAgend('json', JSON);
   Result := Copy(response, 13, Length(response) - 14);
 end;
 

@@ -199,8 +199,8 @@ begin
   medico := cod_medico.Text;
   paciente := cod_paciente.Text;
 
-  // retorno := uAgenda.json_config_get(medico, paciente, strDateTime, mtv_c)idHTTP;
-  ShowMessage(json_config_get(medico, paciente, strDateTime, mtv_c));
+  retorno := uAgenda.json_config_get(medico, paciente, strDateTime, mtv_c);
+  // ShowMessage(json_config_get(medico, paciente, strDateTime, mtv_c));
 
   // URL := 'http://167.71.177.248:3333/agenda?';
   // IdHTTP1.Request.Charset := 'utf-8';

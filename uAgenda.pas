@@ -55,13 +55,14 @@ implementation
 //
 // end;
 
-//function SaveAgend(AFormat, AMethod, ARequest: string): string;
+// function SaveAgend(AFormat, AMethod, ARequest: string): string;
 function SaveAgend(AFormat, ARequest: string): string;
 var
   RBody: TStringStream;
 begin
   idHTTP := TIdHTTP.Create();
-  RBody := TStringStream.Create(UTF8Encode(ARequest));
+  // RBody := TStringStream.Create(UTF8Encode(ARequest));
+  RBody := TStringStream.Create(ARequest);
   try
     if AFormat = 'json' then
     begin
@@ -113,13 +114,10 @@ end;
 
 // function xml_config_get(varname: string): string;
 // var
-// Body: string;
-// response: string;
+// XML, response: string;
 // begin
-// Body := '<parameters><varname>' + varname + '</varname></parameters>';
-// response := dopost('xml', 'config/get', Body);
-// // The response has the following format :
-// // <result>THE RESULT</result>
+// XML := '<parameters><varname>' + varname + '</varname></parameters>';
+// response := dopost('xml', XML);
 // Result := Copy(response, 9, Length(response) - 17);
 // end;
 
