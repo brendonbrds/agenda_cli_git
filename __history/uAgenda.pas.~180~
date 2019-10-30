@@ -59,16 +59,13 @@ var
   RBody: TStringStream;
 begin
   idHTTP := TIdHTTP.Create();
-  RBody := TStringStream.Create(ARequest);
+  RBody := TStringStream.Create(UTF8Encode(ARequest));
   try
     if AFormat = 'json' then
     begin
       idHTTP.Request.Accept := 'text/javascript';
       idHTTP.Request.ContentType := 'application/json';
       idHTTP.Request.ContentEncoding := 'utf-8';
-      idHTTP.Request.Method := 'POST';
-      idHTTP.Request.CacheControl := 'no-cache';
-      idHTTP.Request.clear;
     end
     else
     begin
@@ -77,7 +74,14 @@ begin
       idHTTP.Request.ContentEncoding := 'utf-8';
     end;
     try
-      Result := idHTTP.Post(_URI + AMethod, RBody);
+      // idHTTP.Request.BasicAuthentication := True;
+      // idHTTP.Request.Authentication := TIdBasicAuthentication.Create;
+      // idHTTP.Request.Authentication.Username := 'estagiario';
+      // idHTTP.Request.Authentication.Password := '@D5estagio2019';
+      idHTTP.Request.Method := 'POST';
+      idHTTP.Request.CacheControl := 'no-cache';
+      idHTTP.Request.clear;
+      Result := idHTTP.Post(_URI, RBody);
     except
       on E: EIdHTTPProtocolException do
         ShowMessage(E.ErrorMessage);
@@ -100,7 +104,8 @@ begin
   JSON := JSON + '"data_hora":"' + strDateTime + '",';
   JSON := JSON + '"motivo_cancelamento":"' + mtv_c + '"' + _sufix;
 
-  response := SaveAgend('json', 'config/get', JSON);
+//  response := SaveAgend('json', 'config/get', JSON);
+  response := SaveAgend('json', JSON);
   Result := Copy(response, 13, Length(response) - 14);
 end;
 

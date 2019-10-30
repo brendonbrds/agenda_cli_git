@@ -20,7 +20,8 @@ const
   _path = 'agenda?' + Ureq.Token;
   _URI = _URL + _path;
 
-function SaveAgend(AFormat, AMethod, ARequest: string): string;
+  // function SaveAgend(AFormat, AMethod, ARequest: string): string;
+function SaveAgend(AFormat, ARequest: string): string;
 function json_config_get(medico, paciente, strDateTime, mtv_c: string): string;
 
 implementation
@@ -54,7 +55,8 @@ implementation
 //
 // end;
 
-function SaveAgend(AFormat, AMethod, ARequest: string): string;
+//function SaveAgend(AFormat, AMethod, ARequest: string): string;
+function SaveAgend(AFormat, ARequest: string): string;
 var
   RBody: TStringStream;
 begin
@@ -104,7 +106,8 @@ begin
   JSON := JSON + '"data_hora":"' + strDateTime + '",';
   JSON := JSON + '"motivo_cancelamento":"' + mtv_c + '"' + _sufix;
 
-  response := SaveAgend('json', 'config/get', JSON);
+  // response := SaveAgend('json', 'config/get', JSON);
+  response := SaveAgend('json', JSON);
   Result := Copy(response, 13, Length(response) - 14);
 end;
 
