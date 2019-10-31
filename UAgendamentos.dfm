@@ -240,6 +240,7 @@ object Form1: TForm1
           Align = alClient
           BorderStyle = bsNone
           Color = clBtnHighlight
+          DataSource = DataSource1
           DrawingStyle = gdsGradient
           GradientEndColor = 15790320
           GradientStartColor = 15790320
@@ -1154,5 +1155,26 @@ object Form1: TForm1
     HTTPOptions = [hoForceEncodeParams]
     Left = 816
     Top = 48
+  end
+  object RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter
+    FieldDefs = <>
+    Left = 403
+    Top = 421
+  end
+  object FDMemTable1: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired]
+    UpdateOptions.CheckRequired = False
+    AutoCommitUpdates = False
+    Left = 595
+    Top = 421
+  end
+  object DataSource1: TDataSource
+    DataSet = FDMemTable1
+    Left = 211
+    Top = 429
   end
 end
