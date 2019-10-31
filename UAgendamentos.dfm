@@ -1157,6 +1157,7 @@ object Form1: TForm1
     Top = 48
   end
   object RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter
+    Dataset = FDMemTable1
     FieldDefs = <>
     Left = 403
     Top = 421

@@ -161,7 +161,7 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  memo_mtvCancel.Text := '';
+  // memo_mtvCancel.Text := '';
 end;
 
 procedure TForm1.FormKeyPress(Sender: TObject; var Key: Char);
@@ -174,8 +174,8 @@ end;
 
 procedure TForm1.btn_salvarClick(Sender: TObject);
 var
-  retorno, fparam, mtv_c, medico, paciente, strDate, strTime, strDateTime,
-    dados, URL, senddata, uri, newDateTime: string;
+  retorno, mtv_c, medico, paciente, strDate, strTime, strDateTime, dados, URL,
+    senddata, uri, newDateTime: string;
   StreamRetorno, JsonStreamEnvio: TStringStream;
   TSData: TStringList;
 begin
@@ -197,7 +197,7 @@ begin
   medico := cod_medico.Text;
   paciente := cod_paciente.Text;
 
-  { Chama função para Enviar dados pra api }
+  { Chama a função pra enviar dados pra api }
   retorno := uAgenda.json_config_get(medico, paciente, strDateTime, mtv_c);
 
   cod_medico.Enabled := false;

@@ -7,7 +7,10 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls,
   Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, IdBaseComponent, IdComponent,
-  IdTCPConnection, IdTCPClient, IdHTTP, System.JSON, URequest, DateUtils;
+  IdTCPConnection, IdTCPClient, IdHTTP, System.JSON, URequest, DateUtils,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, REST.Response.Adapter;
 
 type
   TForm1 = class(TForm)
@@ -36,6 +39,9 @@ type
     grid_listaAgend: TDBGrid;
     time_picker: TDateTimePicker;
     IdHTTP1: TIdHTTP;
+    RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter;
+    FDMemTable1: TFDMemTable;
+    DataSource1: TDataSource;
     procedure btn_adicionarClick(Sender: TObject);
     procedure btn_salvarClick(Sender: TObject);
     procedure clear;
@@ -107,7 +113,6 @@ begin
     begin
       // aqui busca o nome do medido da api
       id := cod_medico.Text;
-      // ShowMessage(id);
       lResponse := TStringStream.Create('');
 
       try
@@ -117,7 +122,6 @@ begin
         jsonObj := TJSONObject.ParseJSONValue(lResponse.DataString)
           as TJSONObject;
         retorno := jsonObj.GetValue('nome').Value;
-        // ShowMessage('Nome: ' + retorno);
         name_medico.Text := retorno;
       finally
         lResponse.Free();
@@ -148,7 +152,6 @@ begin
         jsonObj := TJSONObject.ParseJSONValue(lResponse.DataString)
           as TJSONObject;
         retorno := jsonObj.GetValue('nome').Value;
-        // ShowMessage('Nome: ' + retorno);
         name_paciente.Text := retorno;
       finally
         lResponse.Free();
@@ -175,11 +178,6 @@ var
     dados, URL, senddata, uri, newDateTime: string;
   StreamRetorno, JsonStreamEnvio: TStringStream;
   TSData: TStringList;
-
-  // const
-  // _params = 'data_hora=%s&medico=%s&paciente=%s';
-  // _params_if = 'data_hora=%s&medico=%d&paciente=%d&motivo_cancelamento=%s';
-
 begin
 
   if (cod_medico.Text = '') or (cod_paciente.Text = '') then
@@ -199,40 +197,14 @@ begin
   medico := cod_medico.Text;
   paciente := cod_paciente.Text;
 
-  // retorno := uAgenda.json_config_get(medico, paciente, strDateTime, mtv_c);
-  // ShowMessage(json_config_get(medico, paciente, strDateTime, mtv_c));
-
-  { Envia dados pra api }
-  URL := 'http://167.71.177.248:3333/agenda?';
-  IdHTTP1.Request.Charset := 'utf-8';
-  IdHTTP1.Request.CacheControl := 'no-cache';
-  IdHTTP1.Request.clear;
-  StreamRetorno := TStringStream.Create('');
-  TSData := TStringList.Create;
-  try
-    try
-      TSData.Add('medico=' + medico);
-      TSData.Add('paciente=' + paciente);
-      TSData.Add('data_hora=' + strDateTime);
-      TSData.Add('motivo_cancelamento=' + mtv_c);
-      IdHTTP1.Post(URL + UReq.Token, TSData, StreamRetorno);
-      StreamRetorno.Position := 0;
-    except
-      on E: EIdHTTPProtocolException do
-        ShowMessage(E.ErrorMessage);
-    end;
-  finally
-    TSData.Free();
-    StreamRetorno.Free();
-  end;
+  { Chama função para Enviar dados pra api }
+  retorno := uAgenda.json_config_get(medico, paciente, strDateTime, mtv_c);
 
   cod_medico.Enabled := false;
   cod_paciente.Enabled := false;
   date_picker.Enabled := false;
   time_picker.Enabled := false;
   check_cancelado.Checked := false;
-
-  // !chamar a procedure clear por último
   clear;
 end;
 
