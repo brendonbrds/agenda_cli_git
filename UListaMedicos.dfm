@@ -116,6 +116,7 @@ object Form2: TForm2
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      OnKeyPress = search_medico_editKeyPress
     end
   end
 end

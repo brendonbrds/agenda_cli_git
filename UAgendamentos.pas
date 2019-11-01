@@ -47,9 +47,9 @@ type
     procedure clear;
     procedure check_canceladoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure cod_medicoKeyPress(Sender: TObject; var Key: Char);
     procedure cod_pacienteKeyPress(Sender: TObject; var Key: Char);
+    procedure FormShow(Sender: TObject);
 
   private
     { Private declarations }
@@ -164,12 +164,9 @@ begin
   // memo_mtvCancel.Text := '';
 end;
 
-procedure TForm1.FormKeyPress(Sender: TObject; var Key: Char);
+procedure TForm1.FormShow(Sender: TObject);
 begin
-  if Key = #27 then
-  begin
-    close;
-  end;
+  memo_mtvCancel.Text := '';
 end;
 
 procedure TForm1.btn_salvarClick(Sender: TObject);

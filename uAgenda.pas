@@ -9,7 +9,6 @@ uses
 
 var
   idHTTP: TIdHTTP;
-  Str: String;
   Ureq: TTDMConector;
   UAg: UAgendamentos.TForm1;
   mtv_c, medico, paciente, strDate, strTime, strDateTime, senddata,
@@ -87,5 +86,4 @@ begin
   response := SaveAgend('xml', XML);
   Result := Copy(response, 9, Length(response) - 17);
 end;
-
 end.

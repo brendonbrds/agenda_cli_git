@@ -6,7 +6,8 @@ uses
   UListaMedicos in 'UListaMedicos.pas' {Form2},
   UListaPacientes in 'UListaPacientes.pas' {Form3},
   URequest in 'URequest.pas' {TDMConector: TDataModule},
-  uAgenda in 'uAgenda.pas';
+  uAgenda in 'uAgenda.pas',
+  UConsultas in 'UConsultas.pas';
 
 {$R *.res}
 

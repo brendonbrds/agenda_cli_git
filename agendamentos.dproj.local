@@ -38,5 +38,6 @@
     <File Path="URequest.pas"/>
     <File Path="URequest.dfm"/>
     <File Path="uAgenda.pas"/>
+    <File Path="UConsultas.pas"/>
   </ProjectSortOrder>
 </BorlandProject>

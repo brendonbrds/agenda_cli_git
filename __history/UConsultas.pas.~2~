@@ -1,0 +1,10 @@
+unit UConsultas;
+
+interface
+
+uses
+System.SysUtils, Vcl.Dialogs;
+
+implementation
+
+end.

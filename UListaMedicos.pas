@@ -16,6 +16,7 @@ type
     search_medico_edit: TEdit;
     selabel: TLabel;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure search_medico_editKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -24,6 +25,7 @@ type
 
 var
   Form2: TForm2;
+  name: string;
 
 implementation
 
@@ -36,6 +38,14 @@ begin
   if Key = #27 then
   begin
     close;
+  end;
+end;
+
+procedure TForm2.search_medico_editKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    name := search_medico_edit.Text;
   end;
 end;
 
