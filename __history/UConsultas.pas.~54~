@@ -1,0 +1,54 @@
+unit UConsultas;
+
+interface
+
+uses
+  System.SysUtils, Vcl.Forms, IdHTTP, URequest, UAgendamentos,
+  System.JSON;
+
+var
+  IdHTTP: TIdHTTP;
+  Ureq: TTDMConector;
+  UAg: UAgendamentos.TForm1;
+
+function GetMany(rota, nome: string): string;
+function param(path, name: string): string;
+
+implementation
+
+uses
+  System.Classes, Vcl.Dialogs;
+
+function GetMany(rota, nome: string): string;
+var
+  jsonOBJ: TJSONObject;
+  response: TStringStream;
+  url, retorno: string;
+
+begin
+  IdHTTP := TIdHTTP.Create();
+  response := TStringStream.Create();
+  try
+    url := Ureq.urlBase + rota + Ureq.Token;
+    IdHTTP.Get(url, response);
+    response.Position := 0;
+    jsonOBJ := TJSONObject.ParseJSONValue(response.DataString) as TJSONObject;
+    retorno := jsonOBJ.GetValue('codigo').Value;
+    Result := ('b');
+
+  finally
+    response.Free();
+    jsonOBJ.Free();
+  end;
+
+end;
+
+function param(path, name: string): string;
+var
+  response: string;
+begin
+  response := GetMany(path, name);
+  Result := response;
+end;
+
+end.

@@ -31,7 +31,7 @@ implementation
 
 {$R *.dfm}
 
-uses UListaPacientes;
+uses UConsultas;
 
 procedure TForm2.FormKeyPress(Sender: TObject; var Key: Char);
 begin
@@ -46,6 +46,7 @@ begin
   if Key = #13 then
   begin
     name := search_medico_edit.Text;
+    UConsultas.GetMany('medico/?', name);
   end;
 end;
 
